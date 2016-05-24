@@ -1,6 +1,6 @@
 # CS137
 
-Import git project from netbeans
+1. Import git project from netbeans
 
   Select Team > Git > Clone
   
@@ -9,7 +9,7 @@ Import git project from netbeans
   User: your git id
   Password:your git password
 
-How to push modified files
+2. How to push modified files
 
   1.First commit your files that you wish to push
   2.Pull (important)
