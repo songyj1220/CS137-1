@@ -4,10 +4,22 @@
         <servlet-name>ConnectionTest</servlet-name>
         <servlet-class>Testing.ConnectionTest</servlet-class>
     </servlet>
+    
     <servlet-mapping>
         <servlet-name>ConnectionTest</servlet-name>
         <url-pattern>/ConnectionTest</url-pattern>
     </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>ProductListServlet</servlet-name>
+        <servlet-class>Servlets.ProductListServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>ProductListServlet</servlet-name>
+        <url-pattern>/Productlist</url-pattern>
+    </servlet-mapping>
+    
     <session-config>
         <session-timeout>
             30

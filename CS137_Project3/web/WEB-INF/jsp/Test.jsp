@@ -4,10 +4,11 @@
     Author     : misoo
 --%>
 
+<%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 
- <%@page import="Services.*, Beans.*" %>
+ <%@page import="Services.*, Beans.*,java.sql.*" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -32,6 +33,23 @@
         out.println(product.getFeature());
 	
         %>
+        <h1>Products by category</h1>
         
+        <%
+        List<Product> products = Products.getProductsByCategory("cellphone");
+        if(products == null){
+            out.println("products are null");
+        }
+        else{
+     
+        for(Product p : products){
+        out.println(p.getName());
+        out.println(p.getPrice());
+       
+        out.println("----------------");
+    }
+        }
+ 
+%>   
     </body>
 </html>

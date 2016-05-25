@@ -9,7 +9,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.sql.Date;
+
 import java.util.*;
 
 import Beans.*;
@@ -55,6 +55,56 @@ public class Products {
 	}
         return result;
     }
-     
+    
+    public static List<Product> getProductsByCategory(String category) throws SQLException{
+        List<Product> results = new ArrayList<Product>();
+           
+        try{
+                Class.forName("com.mysql.jdbc.Driver").newInstance();
+                Connection dbcon = DriverManager.getConnection(MysqlConfig.URL, MysqlConfig.USER, MysqlConfig.PASS);
+                Statement statement = dbcon.createStatement();
+               
+                String query = "SELECT * FROM products where category = "+ "'" + category + "'";
+
+                ResultSet rs = statement.executeQuery(query);
+                while(rs.next()){
+                    int pid = rs.getInt("product_id");
+                    double price = rs.getDouble("price");
+                    String name = rs.getString("product_name");
+                    String description = rs.getString("description");
+                    String features = rs.getString("features");
+                    String sub_feature = rs.getString("sub_feature");
+                    String imgURL = rs.getString("image");
+                    //String category = rs.getString("category");
+                    Product cur = new Product(pid,price,name,description,features,sub_feature,imgURL,category);
+                    results.add(cur);
+                }
+
+                rs.close();
+                statement.close();
+                dbcon.close();
+
+        }
+        catch(ClassNotFoundException e){
+            e.printStackTrace();
+            
+            results = null;
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+            
+            results = null;
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+            
+            results = null;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            
+            results = null;
+        }
+      
+        return results;
+    }
+
 }
 

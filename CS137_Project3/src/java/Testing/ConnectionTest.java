@@ -9,6 +9,7 @@ import Beans.Product;
 import Services.Products;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -38,11 +39,12 @@ public class ConnectionTest extends HttpServlet {
                 HttpSession session = request.getSession(true);
 
 		Product product = null;
-	
+                List<Product> products = null;
+                
 		try{
 					
                     product = Products.getProductsByID(111111);
-				
+                    products = Products.getProductsByCategory("cellphone");
 			
 		}
 		catch(Exception e){
@@ -51,7 +53,7 @@ public class ConnectionTest extends HttpServlet {
 		}
 		
 		session.setAttribute("this-product", product);
-        
+                session.setAttribute("product-list", products);
         
         RequestDispatcher dispatch =  request.getRequestDispatcher("/WEB-INF/jsp/Test.jsp");
 		dispatch.forward(request, response);
