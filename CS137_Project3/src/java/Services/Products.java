@@ -20,16 +20,19 @@ import java.sql.SQLException;
  * @author misoo
  */
 public class Products {
-    public static Product getProductsByID(int id){
+    public static Product getProductsByID(int id) throws SQLException{
         Product result = null;
+        Statement statement = null;
+        Connection dbcon = null;
+        ResultSet rs = null;
         try{
             Class.forName("com.mysql.jdbc.Driver").newInstance();
-            Connection dbcon = DriverManager.getConnection(MysqlConfig.URL, MysqlConfig.USER, MysqlConfig.PASS);
-            Statement statement = dbcon.createStatement();
+            dbcon = DriverManager.getConnection(MysqlConfig.URL, MysqlConfig.USER, MysqlConfig.PASS);
+            statement = dbcon.createStatement();
 
             String query = "SELECT * FROM products where product_id = " + id;
 
-            ResultSet rs = statement.executeQuery(query);
+            rs = statement.executeQuery(query);
             while(rs.next()){
                     //int pid = rs.getInt("product_id");
                     double price = rs.getDouble("price");
@@ -44,29 +47,36 @@ public class Products {
                     result = new Product(id,price,name,description,features,sub_feature,imgURL,category);
             }
 
-            rs.close();
-            statement.close();
-            dbcon.close();
+//            rs.close();
+//            statement.close();
+//            dbcon.close();
 
         }
         catch(Exception e){
             e.printStackTrace();
             result = null;
 	}
+        finally {
+            rs.close();
+            statement.close();
+            dbcon.close();
+}
         return result;
     }
     
     public static List<Product> getProductsByCategory(String category) throws SQLException{
         List<Product> results = new ArrayList<Product>();
-           
+        Statement statement = null;
+        Connection dbcon = null;
+        ResultSet rs = null;   
         try{
                 Class.forName("com.mysql.jdbc.Driver").newInstance();
-                Connection dbcon = DriverManager.getConnection(MysqlConfig.URL, MysqlConfig.USER, MysqlConfig.PASS);
-                Statement statement = dbcon.createStatement();
+                dbcon = DriverManager.getConnection(MysqlConfig.URL, MysqlConfig.USER, MysqlConfig.PASS);
+                statement = dbcon.createStatement();
                
                 String query = "SELECT * FROM products where category = "+ "'" + category + "'";
 
-                ResultSet rs = statement.executeQuery(query);
+                rs = statement.executeQuery(query);
                 while(rs.next()){
                     int pid = rs.getInt("product_id");
                     double price = rs.getDouble("price");
@@ -85,22 +95,14 @@ public class Products {
                 dbcon.close();
 
         }
-        catch(ClassNotFoundException e){
+         catch(Exception e){
             e.printStackTrace();
-            
             results = null;
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-            
-            results = null;
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-            
-            results = null;
-        } catch (SQLException e) {
-            e.printStackTrace();
-            
-            results = null;
+	}
+        finally {
+            rs.close();
+            statement.close();
+            dbcon.close();
         }
       
         return results;
