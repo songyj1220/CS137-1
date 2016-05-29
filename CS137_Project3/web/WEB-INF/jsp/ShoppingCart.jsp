@@ -36,7 +36,7 @@
 <div class="container" style="margin: auto">
     <%
             for (CartItem item : items) {
-                
+              
     %>
 
     <div class="row" style="margin: auto">
@@ -45,6 +45,7 @@
 
                     <label> <a href=""><%=item.getProduct().getName()%></a>
                     </label>
+                    <label> $<%=item.getProduct().getPrice()%> </label>
             </div>
 
             <form action="<%=action_cart%>" method="post" class="form-inline col-md-8"

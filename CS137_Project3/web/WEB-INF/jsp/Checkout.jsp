@@ -38,10 +38,12 @@
         %>
         <div class="col-sm-4">
             <label>
-                <a href=""><%=item.getProduct().getName()%></a>
+                <a href=""><%=item.getProduct().getName()%></a> 
             </label>
+            <p>$<%=item.getProduct().getPrice()%></p>
         </div>
-
+        
+        
         <div class="form-group">
             <label class="control-label col-sm-2" for="firstName">Quantity:</label>
             <div class="col-sm-1">
@@ -71,7 +73,7 @@
               <div class="form-group">
                     <label class="control-label col-md-2" for="creditcard">Email: </label>
                     <div class="col-md-6">
-                            <input type="text" name="creditCard" class="form-control" id="creditcard"
+                            <input type="text" name="email" class="form-control" id="email"
                                     placeholder="Enter Email Address">
                     </div>
             </div>
@@ -79,7 +81,7 @@
             <div class="form-group">
                     <label class="control-label col-md-2" for="expiration">Address: </label>
                     <div class="col-md-6">
-                            <input type="text" name="expiration" class="form-control" id="expiration"
+                            <input type="text" name="address" class="form-control" id="address"
                                     placeholder="Enter Address">
                     </div>
             </div>
@@ -87,7 +89,7 @@
             <div class="form-group">
                     <label class="control-label col-md-2" for="expiration">City: </label>
                     <div class="col-md-6">
-                            <input type="text" name="expiration" class="form-control" id="expiration"
+                            <input type="text" name="city" class="form-control" id="city"
                                     placeholder="Enter City">
                     </div>
             </div>
@@ -95,19 +97,36 @@
             <div class="form-group">
                     <label class="control-label col-md-2" for="expiration">State: </label>
                     <div class="col-md-6">
-                            <input type="text" name="expiration" class="form-control" id="expiration"
+                            <input type="text" name="state" class="form-control" id="state"
                                     placeholder="Enter City">
                     </div>
             </div>
 
             <div class="form-group">
-                    <label class="control-label col-md-2" for="expiration">Zipcode: </label>
+                    <label class="control-label col-md-2" for="expiration">Zip Code: </label>
                     <div class="col-md-6">
-                            <input type="text" name="expiration" class="form-control" id="expiration"
+                            <input type="text" name="zipcode" class="form-control" id="zipcode"
                                     placeholder="Enter Zipcode">
                     </div>
             </div>
 
+            
+            <div class="form-group">
+                    <label class="control-label col-md-2" for="expiration">Credit Card: </label>
+                    <div class="col-md-6">
+                            <input type="text" name="creditCard" class="form-control" id="creditCard"
+                                    placeholder="Enter Credit card number">
+                    </div>
+            </div>
+            
+            <div class="form-group">
+                    <label class="control-label col-md-2" for="expiration">Expiration Date: </label>
+                    <div class="col-md-6">
+                            <input type="text" name="expiration" class="form-control" id="expiration"
+                                    placeholder="Credit Card Expiration Date (YYYY-MM-DD)">
+                    </div>
+            </div>
+            
             <div class="form-group">
                     <div class="col-md-offset-4 col-md-2">
                             <input class="btn btn-primary form-control" type="submit"
