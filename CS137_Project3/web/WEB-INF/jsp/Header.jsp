@@ -11,11 +11,11 @@
 
     //String cartImage = currentPath + "/img/add-to-cart.png";
 
-    String cartPath = homePath+"/cart?action=add&quantity=1&movie=";
+    String cartPath = homePath+"/Cart";
 	
 %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
+
  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
@@ -54,13 +54,12 @@ nav .dropdown:hover .dropdown-content {
 }
     
   </style>
-</head>
-<body>
+
+
 <div class="jumbotron">
   <div class="container text-center">
 <!--      <img src="img/banner1.jpg" alt="Image" width="100%" height="300px">-->
     <h1>Best Electronics</h1>      
-    <p>Mission, Vission & Values</p>
   </div>
 </div>
 
@@ -89,8 +88,7 @@ nav .dropdown:hover .dropdown-content {
         <li><a href="#">Contact</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="#"><span class="glyphicon glyphicon-user"></span> Your Account</a></li>
-        <li><a href="#"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a></li>
+        <li><a href="<%=cartPath%>"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a></li>
       </ul>
     </div>
   </div>
