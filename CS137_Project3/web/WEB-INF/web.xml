@@ -60,6 +60,7 @@
         <servlet-name>TotalPricePage</servlet-name>
         <url-pattern>/TotalPrice/*</url-pattern>
     </servlet-mapping>
+           
     <servlet>
         <servlet-name>LastViewedServlet</servlet-name>
         <servlet-class>Servlets.LastViewedServlet</servlet-class>
@@ -70,8 +71,19 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ProductDetail</servlet-name>
-        <url-pattern>/ProductDetail</url-pattern>
+        <url-pattern>/ProductDetail/*</url-pattern>
     </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>OrderDetailPage</servlet-name>
+        <jsp-file>/WEB-INF/jsp/OrderDetail.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>OrderDetailPage</servlet-name>
+        <url-pattern>/Orderdetail</url-pattern>
+    </servlet-mapping>
+
+    
     <session-config>
         <session-timeout>
             30

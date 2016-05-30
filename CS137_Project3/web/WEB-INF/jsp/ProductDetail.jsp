@@ -123,6 +123,7 @@
             
    String addr = request.getContextPath();
    String path = request.getContextPath()+"/Product&id=" + product.getPid(); 
+   String cartToPath = addr + "/Cart?action=add&quantity=1&product=";
   %>
     <div id = "row3">
     <div id = "info">
@@ -137,7 +138,13 @@
 				<tr><h1 id = "title"><% out.println(product.getName());%> </h1></tr>
 				<tr><h3 id = "price"><% out.println(product.getPrice());%></h3></tr>
 				<tr><h3 id = "ship">Free Shipping</h3></tr>
-				<tr><a href = "form.jsp?productid=<% out.println(product.getPid());%>"/><img id ="buy" src = "img/buy.jpg" alt = "buy now" style = "width:200px;height:80px;"></a></tr>
+<!--				<tr><a href = "form.jsp?productid=<% out.println(product.getPid());%>"/>
+                                <img id ="buy" src = "img/buy.jpg" alt = "buy now" style = "width:200px;height:80px;">
+                                </a></tr>-->
+                                <a href=<%=cartToPath + product.getPid()%>>
+                                <img src="img/add-to-cart.png" alt="add to cart">
+                                </a>
+  
 				<tr><p id = "details"><% out.println(product.getDescription());%></p>
 				</tr>
 				<tr><h4 id = "feature_title">Product Features</h4>

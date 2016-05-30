@@ -45,7 +45,7 @@
     
     <%
     String addr = request.getContextPath();
-    String path = request.getContextPath()+"/Product&id=";
+    String pathToProduct = request.getContextPath()+"/ProductDetail?id=";
     String cartToPath = addr + "/Cart?action=add&quantity=1&product=";
     List<Product> products = null;
 
@@ -66,7 +66,7 @@
             <tr>
                 <td width="200" rowspan="13">
                     <div class="poster">
-                        <a href="">
+                        <a href="<%=pathToProduct+p.getPid()%>">
                         <img src="<%=p.getImg_url()%>" width="138" height="150">
                         </a>
                     </div>
@@ -81,7 +81,9 @@
             </tr>  
             <tr>
                 <td style="text-align: left">
+                <a href="<%=pathToProduct+p.getPid()%>">
                 <h4><%=p.getName()%></h4>  
+                </a>
                 </td>
 
             </tr>
