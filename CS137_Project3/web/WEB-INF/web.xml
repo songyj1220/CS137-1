@@ -4,7 +4,6 @@
         <servlet-name>ConnectionTest</servlet-name>
         <servlet-class>Testing.ConnectionTest</servlet-class>
     </servlet>
-    
     <servlet-mapping>
         <servlet-name>ConnectionTest</servlet-name>
         <url-pattern>/ConnectionTest</url-pattern>
@@ -14,10 +13,46 @@
         <servlet-name>ProductListServlet</servlet-name>
         <servlet-class>Servlets.ProductListServlet</servlet-class>
     </servlet>
-
     <servlet-mapping>
         <servlet-name>ProductListServlet</servlet-name>
         <url-pattern>/Productlist</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>Test</servlet-name>
+        <servlet-class>Testing.Test</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Test</servlet-name>
+        <url-pattern>/Test/*</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>ShoppingCartServlet</servlet-name>
+        <servlet-class>Servlets.CartServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ShoppingCartServlet</servlet-name>
+        <url-pattern>/Cart/*</url-pattern>
+    </servlet-mapping>
+    
+     <servlet>
+        <servlet-name>CheckoutServlet</servlet-name>
+        <servlet-class>Servlets.CheckoutServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CheckoutServlet</servlet-name>
+        <url-pattern>/CheckoutServlet</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>CheckoutPage</servlet-name>
+        <jsp-file>/WEB-INF/jsp/Checkout.jsp</jsp-file>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>CheckoutPage</servlet-name>
+        <url-pattern>/Checkout/*</url-pattern>
     </servlet-mapping>
     
     <servlet>
@@ -29,7 +64,6 @@
         <servlet-name>LastViewedServlet</servlet-name>
         <url-pattern>/product_detail</url-pattern>
     </servlet-mapping>
-    
     <session-config>
         <session-timeout>
             30

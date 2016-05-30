@@ -7,7 +7,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ page import="Beans.*,  Services.*,java.util.*"%>
 
-<%@ include file="Header.jsp"%>
+
 
 
 
@@ -41,8 +41,12 @@
 </style>
     </head>
     <body>
+    <%@ include file="Header.jsp"%>
+    
     <%
+    String addr = request.getContextPath();
     String path = request.getContextPath()+"/Product&id=";
+    String cartToPath = addr + "/Cart?action=add&quantity=1&product=";
     List<Product> products = null;
 
 
@@ -55,6 +59,7 @@
             <div align="center">
 <%
         for(Product p : products){
+           
 %>
     <table width="800px" border="0" cellspacing="0" cellpadding="10">
         <tbody>
@@ -67,7 +72,7 @@
                     </div>
                     <br>
                     <div class="addToCart">
-                        <a href="">
+                        <a href=<%=cartToPath + p.getPid()%>>
                             <img src="img/add-to-cart.png" alt="add to cart">
                         </a>
                     </div>
