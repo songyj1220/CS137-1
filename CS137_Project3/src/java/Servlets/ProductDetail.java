@@ -104,9 +104,9 @@ public class ProductDetail extends HttpServlet{
     
        
        
-        request.getRequestDispatcher("/WEB-INF/jsp/Header.jsp").include(request, response);
+       
         request.getRequestDispatcher("/WEB-INF/jsp/ProductDetail.jsp").include(request, response);
-        request.getRequestDispatcher("/WEB-INF/jsp/Footer.jsp").include(request, response);
+        
        
    
         

@@ -3,6 +3,15 @@
     Created on : May 24, 2016, 3:11:07 PM
     Author     : jessicazeng1127
 --%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="Services.*, Beans.*,Servlets.*"%>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Product Detail</title>
+</head>
+<body>
+<%@ include file="Header.jsp"%>
 
 
 <style>
@@ -99,8 +108,7 @@
             }
     </style>        
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@page import="Services.*, Beans.*,Servlets.*"%>
+
 
   <% 
             Product product = null;
@@ -169,7 +177,7 @@
                                                                    }
                                                                  catch(Exception e){
                                                                             e.printStackTrace();
-        }
+                                                                    }
                                                             %>
                                                             <p>There are customers are viewing <% out.println(number); %> this product.</p>
                                                         </div>
@@ -182,4 +190,6 @@
 	</div>
 </body>
 
-
+<%@ include file="Footer.jsp"%>
+</body>
+</html>
