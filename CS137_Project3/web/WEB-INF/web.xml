@@ -56,6 +56,16 @@
     </servlet-mapping>
     
     <servlet>
+    	<servlet-name>TotalPricePage</servlet-name>
+    	<jsp-file>/WEB-INF/jsp/TotalPrice.jsp</jsp-file> 
+  	</servlet>
+
+    <servlet-mapping>
+          <servlet-name>TotalPricePage</servlet-name>
+          <url-pattern>/TotalPrice/*</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
         <servlet-name>LastViewedServlet</servlet-name>
         <servlet-class>Servlets.LastViewedServlet</servlet-class>
     </servlet>
@@ -64,6 +74,7 @@
         <servlet-name>LastViewedServlet</servlet-name>
         <url-pattern>/product_detail</url-pattern>
     </servlet-mapping>
+    
     <session-config>
         <session-timeout>
             30

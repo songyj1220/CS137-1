@@ -24,7 +24,42 @@ import java.math.BigDecimal;
  */
 public class CheckoutService {
     
- 
+    public static float getTaxbyZipcode(int zipcode) throws SQLException{
+        float tax = 0;
+        Statement statement = null;
+        Connection dbcon = null;
+        ResultSet rs = null;   
+        try{
+                Class.forName("com.mysql.jdbc.Driver").newInstance();
+                dbcon = DriverManager.getConnection(MysqlConfig.URL, MysqlConfig.USER, MysqlConfig.PASS);
+                statement = dbcon.createStatement();
+               
+                String query = "SELECT tax_rate FROM tax where zip_code = " + zipcode;
+
+                rs = statement.executeQuery(query);
+                while(rs.next()){
+                  tax = rs.getFloat("tax_rate");
+                   
+                }
+
+                rs.close();
+                statement.close();
+                dbcon.close();
+
+        }
+         catch(Exception e){
+            e.printStackTrace();
+            
+	}
+        finally {
+            rs.close();
+            statement.close();
+            dbcon.close();
+        }
+      
+        return tax;
+    }
+
    public static boolean processSale(List<CartItem> items, Customer customer ) throws SQLException{
     Connection dbcon = null;
     PreparedStatement statement = null;

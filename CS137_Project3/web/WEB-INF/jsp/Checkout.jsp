@@ -17,6 +17,7 @@
     }
     String action = request.getContextPath() + "/CheckoutServlet";
     String action_cart = request.getContextPath() + "/Cart";
+    String pathToPrice = request.getContextPath() + "/TotalPrice?zipcode=";
 %>
 
 <!DOCTYPE html>
@@ -29,7 +30,9 @@
     <%@ include file="Header.jsp"%>
 
     <div class="container" style="margin: auto">
-
+        <h5>Total Price: </h5>
+        <div class="total" id ="total">
+        </div>						
         <form action="<%=action%>" method="post" class="form-horizontal"
                 role="form">
         <%
@@ -40,7 +43,7 @@
             <label>
                 <a href=""><%=item.getProduct().getName()%></a> 
             </label>
-            <p>$<%=item.getProduct().getPrice()%></p>
+            <h5>$<%=item.getProduct().getPrice()%></h5>
         </div>
         
         
@@ -53,7 +56,8 @@
         </div>
         <%
         }
-        %>             
+        %>    
+        
             <div class="form-group">
                     <label class="control-label col-md-2" for="firstName">First Name:</label>
                     <div class="col-md-6">
@@ -105,7 +109,7 @@
             <div class="form-group">
                     <label class="control-label col-md-2" for="expiration">Zip Code: </label>
                     <div class="col-md-6">
-                            <input type="text" name="zipcode" class="form-control" id="zipcode"
+                            <input type="text" name="zipcode" class="form-control" id="zipcode" onkeyup="calculate(this.value)"
                                     placeholder="Enter Zipcode">
                     </div>
             </div>
@@ -135,6 +139,55 @@
             </div>
         </form>
     </div>
+    <script>
+    function calculate(zipcode) {
+	var ajaxRequest;
+	if (zipcode.length == 0) {
+		document.getElementById("suggestions").innerHTML = "";
+		//document.getElementById("suggestions").setAttribute("style", "display: none;");
+		return;
+	}
+	else {
+		try{
+			// Opera 8.0+, Firefox, Safari
+			ajaxRequest = new XMLHttpRequest();
+		} 
+		catch (e) {
+			// Internet Explorer Browsers
+			try{
+				ajaxRequest = new ActiveXObject("Msxml2.XMLHTTP");
+			} 
+			catch (e) {
+				try{
+					ajaxRequest = new ActiveXObject("Microsoft.XMLHTTP");
+				} 
+				catch (e) {
+					// Something went wrong
+					alert("Update your browser!");
+					return false;
+				}
+			}
+		}
+		ajaxRequest.onreadystatechange = function() {
+			if (ajaxRequest.readyState == 4 && ajaxRequest.status == 200) {
+			
+			 		//$("div.suggestionBox").html(ajaxRequest.responseText);
+					document.getElementById("total").innerHTML = ajaxRequest.responseText;
+					document.getElementById("total").setAttribute("style", "display: block;");
+			
+			}
+		}; //end anonymous function
+		
+		
+		ajaxRequest.open("GET", "<%=pathToPrice%>" + zipcode, true);
+		ajaxRequest.send();
+	}
+}
+</script>
+            
+            
+            
+            
     <%@ include file="Footer.jsp"%>       
     </body>
 </html>
