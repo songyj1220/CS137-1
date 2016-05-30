@@ -20,6 +20,16 @@
         <url-pattern>/Productlist</url-pattern>
     </servlet-mapping>
     
+    <servlet>
+        <servlet-name>LastViewedServlet</servlet-name>
+        <servlet-class>Servlets.LastViewedServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>LastViewedServlet</servlet-name>
+        <url-pattern>/product_detail</url-pattern>
+    </servlet-mapping>
+    
     <session-config>
         <session-timeout>
             30
