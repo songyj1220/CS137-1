@@ -6,6 +6,7 @@
 package Testing;
 
 import Beans.Product;
+import Services.CheckoutService;
 import Services.Products;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -45,6 +46,7 @@ public class ConnectionTest extends HttpServlet {
 					
                     product = Products.getProductsByID(111111);
                     products = Products.getProductsByCategory("cellphone");
+                    CheckoutService.InsertTest();
 			
 		}
 		catch(Exception e){
