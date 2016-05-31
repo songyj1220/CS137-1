@@ -30,6 +30,12 @@ public class CheckoutService {
         return bd;
     }
     
+    public static BigDecimal roundDouble(double d, int decimalPlace) {
+        BigDecimal bd = new BigDecimal(Double.toString(d));
+        bd = bd.setScale(decimalPlace, BigDecimal.ROUND_HALF_UP);       
+        return bd;
+    }
+    
     public static float getTaxbyZipcode(int zipcode) throws SQLException{
         float tax = 0;
         Statement statement = null;

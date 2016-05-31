@@ -4,6 +4,7 @@
     Author     : misoo
 --%>
 
+<%@page import="java.math.BigDecimal"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ page import="Beans.*,  Services.*,java.util.*"%>
 
@@ -52,14 +53,14 @@
 
     products = (List<Product>) session.getAttribute("listOfProducts");
       
-
+    BigDecimal price;
     %>   
     <div class="main">
         <div class="contents">
             <div align="center">
 <%
         for(Product p : products){
-           
+        price = CheckoutService.roundDouble(p.getPrice(), 2);
 %>
     <table width="800px" border="0" cellspacing="0" cellpadding="10">
         <tbody>
@@ -89,7 +90,7 @@
             </tr>
             <tr>
                 <td style="text-align: left">
-                <h4>$<%=p.getPrice()%></h4>  
+                <h4>$<%=price%></h4>  
                 </td>
             </tr>
             <tr>
