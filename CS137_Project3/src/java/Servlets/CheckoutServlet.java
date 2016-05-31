@@ -29,7 +29,12 @@ import javax.servlet.http.HttpSession;
  */
 public class CheckoutServlet extends HttpServlet {
 
- 
+    private String nullify(String s){
+        if(s == null || s.isEmpty()){
+            s="";
+        }
+        return s;
+    }
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -38,76 +43,74 @@ public class CheckoutServlet extends HttpServlet {
        //RequestDispatcher dispatch =  request.getRequestDispatcher("/WEB-INF/jsp/Checkout.jsp");
        //dispatch.forward(request, response);
        PrintWriter out = response.getWriter();
-       try{
+//       try{
         HttpSession session = request.getSession(true);
         
         List<CartItem> items = (List<CartItem>) session.getAttribute("current-shopping-cart");
         
-        String productID = request.getParameter("product");
-        
-        String quantity   = request.getParameter("quantity");
-        String firstName  = request.getParameter("firstName");
-        String lastName   = request.getParameter("lastName");
-        
-        String email   = request.getParameter("email");
-        String address   = request.getParameter("address");
-        String city   = request.getParameter("city");
-        String state   = request.getParameter("state");
-        String str_zipcode   = request.getParameter("zipcode");
+        String productID = nullify(request.getParameter("product"));
+
+        String quantity = nullify(request.getParameter("quantity"));
+        String name = nullify(request.getParameter("name"));
+
+      
+        String email = nullify(request.getParameter("email"));
+        String address = nullify(request.getParameter("address"));
+        String city = nullify(request.getParameter("city"));
+        String state = nullify(request.getParameter("state"));
+        String str_zipcode = nullify(request.getParameter("zipcode"));
         int zipcode= Integer.parseInt(str_zipcode );
         
-        Customer customer = new Customer(firstName,lastName,email,address,city,state,zipcode);
+        
+        Customer customer = new Customer(name,email,address,city,state,zipcode);
         if(customer == null){
            
-            session.setAttribute("error-message", "Invalid Customer Information. Try Again.");
+            //session.setAttribute("error-message", "Invalid Customer Information. Try Again.");
             String path = request.getContextPath() + "/Checkout";
             response.sendRedirect(path);
             return;
         }
         else{
-                int id = Integer.parseInt(productID);
-                int qUpdate = Integer.parseInt(quantity);
-                
-                int index = -1;
-                for(int i=0;i<items.size();i++)
-                        if(items.get(i).equals(id))
-                                index = i;
-
-                if(index != -1){
-                        CartItem item = (CartItem)items.get(index);
-                        item.setQuantity(qUpdate);
-                        if(qUpdate == 0)
-                                items.remove(index);
-                }
-            boolean success = CheckoutService.processSale(items,customer);
-            if(success){
-                    //out.println("Succsefully processed sale");
-                    
+        
+         
+           try {
+               CheckoutService.InsertCustomer(customer);
+              // CheckoutService.InsertCustomer2(name, email, address, city, state, zipcode);
+           } catch (SQLException ex) {
+               Logger.getLogger(CheckoutServlet.class.getName()).log(Level.SEVERE, null, ex);
+           }
+          
+        }
+//            
+//
+////            if(success){
+////                    //out.println("Succsefully processed sale");
+////                    
                     List<CartItem> copy = new ArrayList<CartItem>();
                     copy = items;
                                      
                     session.setAttribute("saled-items", copy);
-                    
+                    session.setAttribute("this-customer", customer);
                     session.setAttribute("current-shopping-cart", null);
-
+//
                     String path = request.getContextPath() + "/Orderdetail";
-                    //session.setAttribute("last-sale", "success");
-                    response.sendRedirect(path);
-            }
-            else{
-                    out.println("Failed in procesing sale");
-                    session.setAttribute("error-message","Sale did not go through, try again!");
-                    String path = request.getContextPath() + "/Checkout";
-                    response.sendRedirect(path);
-                    return;
 
-            }
-        }
-        }
-        catch(Exception e){
-                out.println("Sale failed to go through, try again!");
-                e.printStackTrace();
-        }
+                    response.sendRedirect(path);
+//            }
+//            else{
+//                    out.println("Failed in procesing sale");
+//                    session.setAttribute("error-message","Sale did not go through, try again!");
+//                    String path = request.getContextPath() + "/Checkout";
+//                    response.sendRedirect(path);
+//                    return;
+//
+//            }
+//        }
+//        }
+//        catch(Exception e){
+//                //out.println("Sale failed to go through, try again!");
+//                e.printStackTrace();
+//        }
 	
     }
 

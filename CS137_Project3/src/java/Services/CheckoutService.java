@@ -72,72 +72,209 @@ public class CheckoutService {
         return tax;
     }
 
-   public static boolean processSale(List<CartItem> items, Customer customer ) throws SQLException{
-    Connection dbcon = null;
-    PreparedStatement statement = null;
-    try{
-            Class.forName("com.mysql.jdbc.Driver").newInstance();
-            dbcon = DriverManager.getConnection(MysqlConfig.URL, MysqlConfig.USER, MysqlConfig.PASS);
-            dbcon.setAutoCommit(false);
-            Date saleDate = new Date();
-           
-            if(items == null)
-                    throw new Exception("Customer or items is null");
-            //INSERT INTO `order`( `productID`, `firstName`, `lastName`, `email`, `address`, `city`, `state`, `zipcode`, `date`, `total_price`) VALUES (123,'a','a','a','a','a','a',123456,1,123.11)
-            String preparedQuery = "INSERT INTO 'order' "
-                            + "( 'productID', 'qnt', 'firstName', 'lastName', 'email', 'address', 'city', 'state', 'zipcode', 'date')"
-                            + " VALUES (?,?,?,?,?,?,?,?,?,?)";
+//   public static boolean processSale(List<CartItem> items, Customer customer ) throws SQLException{
+//    Connection dbcon = null;
+//    PreparedStatement statement = null;
+//    try{
+//            Class.forName("com.mysql.jdbc.Driver").newInstance();
+//            dbcon = DriverManager.getConnection(MysqlConfig.URL, MysqlConfig.USER, MysqlConfig.PASS);
+//            dbcon.setAutoCommit(false);
+//            Date saleDate = new Date();
+//           
+//            if(items == null)
+//                    throw new Exception("Customer or items is null");
+//            //INSERT INTO `order`( `productID`, `firstName`, `lastName`, `email`, `address`, `city`, `state`, `zipcode`, `date`, `total_price`) VALUES (123,'a','a','a','a','a','a',123456,1,123.11)
+//            String preparedQuery = "INSERT INTO 'order' "
+//                            + "( 'productID', 'qnt', 'firstName', 'lastName', 'email', 'address', 'city', 'state', 'zipcode', 'date')"
+//                            + " VALUES (?,?,?,?,?,?,?,?,?,?)";
+//
+//            for(int i=0;i<items.size();i++){
+//                 
+//                  
+//                            statement = dbcon.prepareStatement(preparedQuery);
+//                            Product curItem = items.get(i).getProduct();
+//                            statement.setString(1, curItem.getPid()+"");
+//                            statement.setString(2, items.get(i).getQuantity()+"");
+//                            statement.setString(3, customer.getFirst_name());
+//                            statement.setString(4, customer.getLast_name());
+//                            statement.setString(5, customer.getEmail());
+//                            statement.setString(6, customer.getAddress());
+//                            statement.setString(7, customer.getCity());
+//                            statement.setString(8, customer.getState());
+//                            statement.setInt(9, customer.getZipcode());
+//
+//                            java.sql.Date sqlDate = new java.sql.Date(saleDate.getTime());
+//                            statement.setDate(10, sqlDate);
+//
+//
+//                            statement.executeUpdate();
+//                            dbcon.commit();
+//
+//                    
+//            }
+//
+//
+//        }
+//	catch (Exception e ) {
+//           e.printStackTrace();
+//            if (dbcon != null) {
+//                try {
+//                    System.err.print("Transaction is being rolled back");
+//                    dbcon.rollback();
+//                } catch(SQLException excep) {
+//                    excep.printStackTrace();
+//                }
+//            }
+//            else
+//                return false;
+//        } finally {
+//            if (statement != null) {
+//                statement.close();
+//            }
+//
+//            dbcon.setAutoCommit(true);
+//        }
+//    
+//        return true;  
+//    }
+//    
+//   
+   public static void InsertCustomer2(String name) throws SQLException{
+       
+        Statement statement = null;
+        Connection dbcon = null;
+        ResultSet rs = null;   
+        try{
+                Class.forName("com.mysql.jdbc.Driver").newInstance();
+                dbcon = DriverManager.getConnection(MysqlConfig.URL, MysqlConfig.USER, MysqlConfig.PASS);
+                statement = dbcon.createStatement();
 
-            for(int i=0;i<items.size();i++){
-                 
-                  
-                            statement = dbcon.prepareStatement(preparedQuery);
-                            Product curItem = items.get(i).getProduct();
-                            statement.setString(1, curItem.getPid()+"");
-                            statement.setString(2, items.get(i).getQuantity()+"");
-                            statement.setString(3, customer.getFirst_name());
-                            statement.setString(4, customer.getLast_name());
-                            statement.setString(5, customer.getEmail());
-                            statement.setString(6, customer.getAddress());
-                            statement.setString(7, customer.getCity());
-                            statement.setString(8, customer.getState());
-                            statement.setInt(9, customer.getZipcode());
+                String query = "INSERT INTO customer (name) "+ "VALUES ('" + name + "')";
 
-                            java.sql.Date sqlDate = new java.sql.Date(saleDate.getTime());
-                            statement.setDate(10, sqlDate);
+                statement.executeUpdate(query);
+                
 
 
-                            statement.executeUpdate();
-                            dbcon.commit();
-
-                    
-            }
-
-
+        }catch(SQLException se){
+            //Handle errors for JDBC
+             se.printStackTrace();
+        }catch(Exception e){
+            //Handle errors for Class.forName
+            e.printStackTrace();
+        }finally{
+            //finally block used to close resources
+     
+            rs.close();
+            statement.close();
+            dbcon.close();
         }
-	catch (Exception e ) {
-           e.printStackTrace();
-            if (dbcon != null) {
-                try {
-                    System.err.print("Transaction is being rolled back");
-                    dbcon.rollback();
-                } catch(SQLException excep) {
-                    excep.printStackTrace();
-                }
-            }
-            else
-                return false;
-        } finally {
-            if (statement != null) {
-                statement.close();
-            }
+      
+        
+   }
+   public static void InsertCustomer(Customer customer) throws SQLException{
+       
+        Statement statement = null;
+        Connection dbcon = null;
+          
+        try{
+                Class.forName("com.mysql.jdbc.Driver").newInstance();
+                dbcon = DriverManager.getConnection(MysqlConfig.URL, MysqlConfig.USER, MysqlConfig.PASS);
+                statement = dbcon.createStatement();
+ 
+                String query = "INSERT INTO customer (name, email, address, city, state, zipcode) "
+                        +"VALUES ('"+customer.getName()+"','"+customer.getEmail()+"','"
+                        +customer.getAddress()+"','"+customer.getCity()+"','"
+                        +customer.getState()+"','"+customer.getZipcode()+"')";
 
-            dbcon.setAutoCommit(true);
+                statement.executeUpdate(query);
+                
+
+
+        }catch(SQLException se){
+            //Handle errors for JDBC
+             se.printStackTrace();
+        }catch(Exception e){
+            //Handle errors for Class.forName
+            e.printStackTrace();
+        }finally{
+            //finally block used to close resources
+     
+        
+            statement.close();
+            dbcon.close();
         }
-    
-        return true;  
-    }
-    
+      
+        
+   }
+   public static void InsertCustomer2(String name,String email,String address,
+           String city, String state, int zipcode) throws SQLException{
+       
+        Statement statement = null;
+        Connection dbcon = null;
+
+        try{
+                Class.forName("com.mysql.jdbc.Driver").newInstance();
+                dbcon = DriverManager.getConnection(MysqlConfig.URL, MysqlConfig.USER, MysqlConfig.PASS);
+                statement = dbcon.createStatement();
+ 
+                String query = "INSERT INTO customer (name, email, address, city, state, zipcode) "
+                        +"VALUES ('"+name+"','"+email+"','"
+                        +address+"','"+city+"','"
+                        +state+"','"+zipcode+"')";
+
+                statement.executeUpdate(query);
+                
+
+
+        }catch(SQLException se){
+            //Handle errors for JDBC
+             se.printStackTrace();
+        }catch(Exception e){
+            //Handle errors for Class.forName
+            e.printStackTrace();
+        }finally{
+            //finally block used to close resources
+     
+          
+            statement.close();
+            dbcon.close();
+        }
+      
+        
+   }
+   public static void InsertTest() throws SQLException{
+       
+        Statement statement = null;
+        Connection dbcon = null;
+        ResultSet rs = null;   
+        try{
+                Class.forName("com.mysql.jdbc.Driver").newInstance();
+                dbcon = DriverManager.getConnection(MysqlConfig.URL, MysqlConfig.USER, MysqlConfig.PASS);
+                statement = dbcon.createStatement();
+
+                String query = "INSERT INTO customer VALUES ('test')";
+
+                statement.executeUpdate(query);
+                
+
+            
+
+        }catch(SQLException se){
+            //Handle errors for JDBC
+             se.printStackTrace();
+        }catch(Exception e){
+            //Handle errors for Class.forName
+            e.printStackTrace();
+        }finally{
+            //finally block used to close resources
+     
+            rs.close();
+            statement.close();
+            dbcon.close();
+        }
+      
+        
+   }
 //    public static boolean processSale(List<CartItem> items, Customer customer ) throws SQLException{
 //        //List<Product> results = new ArrayList<Product>();
 //        boolean result = false;

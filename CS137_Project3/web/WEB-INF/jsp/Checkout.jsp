@@ -73,20 +73,13 @@
         %>    
         
             <div class="form-group">
-                    <label class="control-label col-md-2" for="firstName">First Name:</label>
+                    <label class="control-label col-md-2" for="firstName">Name:</label>
                     <div class="col-md-6">
-                            <input type="text" name="firstName" class="form-control"
-                                    id="firstName" placeholder="Enter First Name ">
+                            <input type="text" name="name" class="form-control"
+                                    id="name" placeholder="Enter First Name ">
                     </div>
             </div>
 
-            <div class="form-group">
-                    <label class="control-label col-md-2" for="lastName">Last Name:</label>
-                    <div class="col-md-6">
-                            <input type="text" name="lastName" class="form-control"
-                                    id="lastName" placeholder="Enter Last Name">
-                    </div>
-            </div>
 
               <div class="form-group">
                     <label class="control-label col-md-2" for="creditcard">Email: </label>
@@ -148,7 +141,7 @@
             <div class="form-group">
                     <div class="col-md-offset-4 col-md-2">
                             <input class="btn btn-primary form-control" type="submit"
-                                    name="action" value="checkout">
+                                    name="action" value="submit">
                     </div>
             </div>
         </form>
