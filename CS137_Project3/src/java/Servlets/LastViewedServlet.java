@@ -32,6 +32,7 @@ public class LastViewedServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 //        processRequest(request, response);
+ 
         HttpSession session = request.getSession(true);
         Integer id = Integer.valueOf(request.getParameter("id"));
         
@@ -44,8 +45,9 @@ public class LastViewedServlet extends HttpServlet {
         }
         
         session.setAttribute("one_prd", one_prd);
-        RequestDispatcher dispatch =  request.getRequestDispatcher("/WEB-INF/index.jsp");
-	dispatch.forward(request, response);
+        RequestDispatcher dispatch =  request.getRequestDispatcher("/index.jsp");
+        //RequestDispatcher dispatch =  request.getRequestDispatcher("/WEB-INF/jsp/ProductDetail.jsp");
+	dispatch.include(request, response);
        
     }
 

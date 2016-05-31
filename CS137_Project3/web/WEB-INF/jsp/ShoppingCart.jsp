@@ -26,7 +26,7 @@
     if (items == null)
         items = new ArrayList<CartItem>();
 
-    String movie_link = request.getContextPath()+"/Movie/";
+
     String action_cart = request.getContextPath() + "/Cart";
     String action_checkout = request.getContextPath() + "/Checkout";
     String action = request.getContextPath() + "/CheckoutServlet";
@@ -47,7 +47,7 @@
                     </label>
                     <label> $<%=item.getProduct().getPrice()%> </label>
             </div>
-
+             
             <form action="<%=action_cart%>" method="post" class="form-inline col-md-8"
                     role="form">
                     <input type="hidden" name="product"
@@ -143,7 +143,8 @@
 <%
     if (items != null && items.size() > 0) {
 %>
-
+<br>
+<br>
 <div class="container" style="margin:auto">
 <div class="row">
 <form action="<%=action_checkout%>" method="post" class="form-inline"

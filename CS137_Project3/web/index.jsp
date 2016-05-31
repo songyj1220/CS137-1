@@ -38,10 +38,11 @@
 </head>
     <body>
         <%
+        String addr = request.getContextPath();
         String path = request.getContextPath()+"/Product&id=";
         List<Product> ViewedProducts = new ArrayList<Product>();
-        
-
+        String pathToProduct = request.getContextPath()+"/ProductDetail?id=";
+        String cartToPath = addr + "/Cart?action=add&quantity=1&product=";
         ViewedProducts.add((Product) session.getAttribute("one_prd"));
         if (ViewedProducts.get(0)==null){
             ViewedProducts.remove(0);
@@ -72,13 +73,13 @@
             <tr>
                 <td width="200" rowspan="13">
                     <div class="poster">
-                        <a href="">
+                        <a href=<%=pathToProduct+p.getPid()%>>
                         <img src="<%=p.getImg_url()%>" width="138" height="150">
                         </a>
                     </div>
                     <br>
                     <div class="addToCart">
-                        <a href="">
+                        <a href=<%=cartToPath + p.getPid()%>>
                             <img src="img/add-to-cart.png" alt="add to cart">
                         </a>
                     </div>
@@ -87,6 +88,7 @@
             </tr>  
             <tr>
                 <td style="text-align: left">
+                <a href="<%=pathToProduct+p.getPid()%>">
                 <h4><%=p.getName()%></h4>  
                 </td>
 

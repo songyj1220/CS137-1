@@ -4,6 +4,7 @@
     Author     : misoo
 --%>
 
+<%@page import="java.math.BigDecimal"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ page import="Beans.*,  Services.*,java.util.*"%>
 <!DOCTYPE html>
@@ -16,30 +17,57 @@
        <%@ include file="Header.jsp"%>
        
        <%
-        List<CartItem> items = (List<CartItem>) session.getAttribute("current-shopping-cart");
-       
+        List<CartItem> items = (List<CartItem>) session.getAttribute("saled-items");
+        BigDecimal totalPrice= (BigDecimal) session.getAttribute("total-price");
               
         %>
         <div class="container" style="margin: auto">
         <h3>Order Detail</h3>
         
-        <%
-            for (CartItem item : items) {
-        %>        
-       
-                <div class="row" style="margin: auto">
+         <div class="contents">
+            <div align="center">
+                <h3>Total Price: $<%=totalPrice%></h3>
+            <%
+                     for (CartItem item : items) {
+                         
+            %>
+            <table width="800px" border="0" cellspacing="0" cellpadding="10">
+                <tbody>
+                    <tr>
+                        <td width="200" rowspan="13">
+                            <div class="poster">
+                                <a href="">
+                                <img src="<%=item.getProduct().getImg_url()%>" width="138" height="150">
+                                </a>
+                            </div>
+                            <br>
+                            
+                        </td>
 
-                    <div class="col-md-4">
+                    </tr>  
+                    <tr>
+                        <td style="text-align: left">
+                        <h4><%=item.getProduct().getName()%></h4>  
+                        </td>
 
-                        <label> <%=item.getProduct().getName()%> </label>
-                        <label> $<%=item.getProduct().getPrice()%> </label>
-                    </div>
-                    <div class="col-md-2">
-                        
+                    </tr>
+                    <tr>
+                       <td style="text-align: left">
+                        <h4><%=item.getQuantity()%></h4>  
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: left">
+                        <h4>Price: $<%=item.getProduct().getPrice()%></h4>  
+                        </td>
+                    </tr>
+                    
+                </tbody>
+            </table>
+         <hr>
+        <%}%>
                     </div>
                 </div>
-        
-        <%}%>
        <%@ include file="Footer.jsp"%>
     </body>
 </html>

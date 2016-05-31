@@ -4,6 +4,7 @@
     Author     : misoo
 --%>
 
+<%@page import="java.math.BigDecimal"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ page import="Beans.*,  Services.*,java.util.*"%>
 
@@ -28,25 +29,38 @@
     </head>
     <body>
     <%@ include file="Header.jsp"%>
-
+    <%
+        float sum = 0;
+        for (CartItem it : items) {
+             sum += (it.getProduct().getPrice() * it.getQuantity());
+             
+        }
+        BigDecimal result;
+        result= CheckoutService.round(sum, 2);
+    %>
     <div class="container" style="margin: auto">
-        <h5>Total Price: </h5>
-        <div class="total" id ="total">
-        </div>						
+       	<div class="total" id ="total">
+            <b>Total Price:</b> $<%=result%>
+        </div>				
         <form action="<%=action%>" method="post" class="form-horizontal"
                 role="form">
+            
         <%
                 for (CartItem item : items) {
 
         %>
-        <div class="col-sm-4">
+        
+        <div class="col-sm-6">
             <label>
-                <a href=""><%=item.getProduct().getName()%></a> 
+                <a href=""><%=item.getProduct().getName()%></a>
+                &nbsp; $<%=item.getProduct().getPrice()%>
             </label>
-            <h5>$<%=item.getProduct().getPrice()%></h5>
+            
         </div>
         
-        
+      
+         <input type="hidden" name="product"
+                            value="<%=item.getProduct().getPid()%>"></input> 
         <div class="form-group">
             <label class="control-label col-sm-2" for="firstName">Quantity:</label>
             <div class="col-sm-1">
@@ -174,7 +188,7 @@
 			 		//$("div.suggestionBox").html(ajaxRequest.responseText);
 					document.getElementById("total").innerHTML = ajaxRequest.responseText;
 					document.getElementById("total").setAttribute("style", "display: block;");
-			
+			ajaxRequest.responseType
 			}
 		}; //end anonymous function
 		
