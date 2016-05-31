@@ -43,7 +43,7 @@ public class ProductDetail extends HttpServlet{
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-       int pid = 111111;
+       int pid = 111112;
         //int pid = request.getParameter("productid");
        
         
@@ -60,7 +60,7 @@ public class ProductDetail extends HttpServlet{
         
         
        session.setAttribute("current_product_detail",product);
-       
+        session.setAttribute("one_prd", product);
 
     //if the user has not viewed any product or has not viewed this product
        if (session.getAttribute("last_product_detail") == null ||session.getAttribute("last_product_detail") != session.getAttribute("current_product_detail")){
@@ -107,7 +107,9 @@ public class ProductDetail extends HttpServlet{
        
         request.getRequestDispatcher("/WEB-INF/jsp/ProductDetail.jsp").forward(request, response);
         
-       
+        //RequestDispatcher dispatch =  request.getRequestDispatcher("/index.jsp");
+        //RequestDispatcher dispatch =  request.getRequestDispatcher("/WEB-INF/jsp/ProductDetail.jsp");
+	//dispatch.include(request, response);
    
         
         
