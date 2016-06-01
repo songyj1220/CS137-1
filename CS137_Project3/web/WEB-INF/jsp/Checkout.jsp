@@ -42,8 +42,7 @@
        	<div class="total" id ="total">
             <b>Total Price:</b> $<%=result%>
         </div>				
-        <form action="<%=action%>" method="post" class="form-horizontal"
-                role="form">
+       
             
         <%
                 for (CartItem item : items) {
@@ -58,7 +57,8 @@
             
         </div>
         
-      
+        <form action="<%=action%>" method="post" class="form-horizontal"
+                role="form">
          <input type="hidden" name="product"
                             value="<%=item.getProduct().getPid()%>"></input> 
         <div class="form-group">
@@ -66,12 +66,19 @@
             <div class="col-sm-1">
                 <input type="number" name="quantity" value="<%=item.getQuantity()%>" 
                    class="form-control" id="quantity" placeholder="Qnt"> 
+                <input class="btn btn-success form-control" type="submit" name="action"
+                    value="update"> 
+                <input class="btn btn-danger form-control"
+                    type="submit" name="action" value="remove">
             </div>
         </div>
+                   
+        </form>
         <%
         }
         %>    
-        
+          <form action="<%=action%>" method="post" class="form-horizontal"
+                role="form">
             <div class="form-group">
                     <label class="control-label col-md-2" for="firstName">Name:</label>
                     <div class="col-md-6">

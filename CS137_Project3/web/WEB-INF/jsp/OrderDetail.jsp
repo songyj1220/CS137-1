@@ -53,7 +53,7 @@
                     </tr>
                     <tr>
                        <td style="text-align: left">
-                        <h4><%=item.getQuantity()%></h4>  
+                        <h4>Quantity: <%=item.getQuantity()%></h4>  
                         </td>
                     </tr>
                     <tr>

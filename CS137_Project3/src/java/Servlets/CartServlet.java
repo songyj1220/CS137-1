@@ -132,9 +132,9 @@ public class CartServlet extends HttpServlet {
         }
 
         session.setAttribute("current-shopping-cart", items);
-//	RequestDispatcher dispatch =  request.getRequestDispatcher("/WEB-INF/jsp/ShoppingCart.jsp");
-//	dispatch.forward(request, response);
-       response.sendRedirect(request.getContextPath() + "/Cart");
+	//RequestDispatcher dispatch =  request.getRequestDispatcher("/WEB-INF/jsp/ShoppingCart.jsp");
+	//dispatch.forward(request, response);
+        response.sendRedirect(request.getContextPath() + "/Cart");
        
     }
 

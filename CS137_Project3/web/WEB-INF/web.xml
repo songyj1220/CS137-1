@@ -86,7 +86,15 @@
         <servlet-name>OrderDetailPage</servlet-name>
         <url-pattern>/Orderdetail</url-pattern>
     </servlet-mapping>
-
+    
+    <servlet>
+        <servlet-name>ShoppingCartPage</servlet-name>
+        <jsp-file>/WEB-INF/jsp/ShoppingCart.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ShoppingCartPage</servlet-name>
+        <url-pattern>/ShoppingCart/*</url-pattern>
+    </servlet-mapping>
     
     <session-config>
         <session-timeout>
