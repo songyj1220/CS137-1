@@ -43,9 +43,31 @@ public class ProductDetail extends HttpServlet{
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-       int pid = 111112;
-        //int pid = request.getParameter("productid");
+       //int pid = 111112;
+      
+       //int number = request.setParameter("pid");
        
+    
+       ProcessRequest(request,response);
+       
+       
+        request.getRequestDispatcher("/WEB-INF/jsp/ProductDetail.jsp").forward(request, response);
+        
+        //RequestDispatcher dispatch =  request.getRequestDispatcher("/index.jsp");
+        //RequestDispatcher dispatch =  request.getRequestDispatcher("/WEB-INF/jsp/ProductDetail.jsp");
+	//dispatch.include(request, response);
+   
+        
+        
+    }
+    
+    
+     protected void ProcessRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+         
+       int pid;
+       String id = request.getParameter("id");
+       pid = Integer.parseInt(id);
         
        HttpSession session = request.getSession(true);
        ServletContext servContext =  getServletConfig().getServletContext();
@@ -58,16 +80,38 @@ public class ProductDetail extends HttpServlet{
             e.printStackTrace();
         }
         
-        
-       session.setAttribute("current_product_detail",product);
-        session.setAttribute("one_prd", product);
+     
+       HashMap users =  (HashMap) servContext.getAttribute("users");
+       
+       // if user is leaving this page,  remove user from hashmap
+       if ((request.getAttribute("load") == "false") && (users != null)){
+           if (request.getAttribute("product") != null){
+                int rm_id = (Integer) request.getAttribute("product");
+                int v = (Integer) users.get(rm_id);
+                if (v != 0){
+                    users.put(rm_id,v-1);
+                    servContext.setAttribute("users", users);
+                    session.setAttribute("last_product_detail",null);
+                    session.setAttribute("current_product_detail",null);
 
-    //if the user has not viewed any product or has not viewed this product
+                }
+                
+           }
+       }
+       
+        
+       else {
+       session.setAttribute("current_product_detail",product);
+       session.setAttribute("one_prd", product);
+       
+     /* add user to hashmap */  
+       
+       //if the user has not viewed any product or has not viewed this product
        if (session.getAttribute("last_product_detail") == null ||session.getAttribute("last_product_detail") != session.getAttribute("current_product_detail")){
             
-      //get context object
+      
        
-        HashMap users =  (HashMap) servContext.getAttribute("users"); 
+        
         
         //create hashmap
         if (users == null){
@@ -94,25 +138,11 @@ public class ProductDetail extends HttpServlet{
        
         servContext.setAttribute("users", users);
        }
-        
+      
         
        //record the last product this user view
        session.setAttribute("last_product_detail",product);
        
-       //int number = request.setParameter("pid");
-        
-    
-       
-       
-       
-        request.getRequestDispatcher("/WEB-INF/jsp/ProductDetail.jsp").forward(request, response);
-        
-        //RequestDispatcher dispatch =  request.getRequestDispatcher("/index.jsp");
-        //RequestDispatcher dispatch =  request.getRequestDispatcher("/WEB-INF/jsp/ProductDetail.jsp");
-	//dispatch.include(request, response);
-   
-        
-        
-    }
+        }
+     }
 }
-
