@@ -5,6 +5,7 @@
 --%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="Services.*, Beans.*,Servlets.*"%>
+<%@page import = "javax.servlet.RequestDispatcher"%>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -91,15 +92,15 @@
             #picture > #item2,#item3{ 
 			position: relative;
 			display: block;
-			width:39%;
+			width:100%;
 	}
 			
 		
-	   #picture > #item1:hover, #item2:hover, #item3:hover{
+/*	   #picture > #item1:hover, #item2:hover, #item3:hover{
               
 			width:100%;
 			height:100%;
-		}
+		}*/
             
             #picture{
                 padding-left:30px;
@@ -108,7 +109,7 @@
             }
     </style>        
 
-
+ 
 
   <% 
             Product product = null;
@@ -124,7 +125,33 @@
    String addr = request.getContextPath();
    String path = request.getContextPath()+"/Product&id=" + product.getPid(); 
    String cartToPath = addr + "/Cart?action=add&quantity=1&product=";
+   RequestDispatcher rd =  request.getRequestDispatcher("/ProductDetail");
   %>
+ <script> 
+        
+        //window.addEventListener("load", function(){
+         window.addEventListener("load", function (){
+         <% request.setAttribute("load","true");%>
+         //rd.forward(request, response);
+         console.log("loaded");
+         
+     });
+
+        
+        window.addEventListener("beforeunload", function (){
+             <% request.setAttribute("load","false");
+                request.setAttribute("product",product.getPid());
+                //rd.include(request, response);
+             %>
+              
+              console.log("notLoaded");
+      });
+      
+      
+     
+      
+</script>
+
     <div id = "row3">
     <div id = "info">
                   
@@ -141,7 +168,7 @@
 <!--				<tr><a href = "form.jsp?productid=<% out.println(product.getPid());%>"/>
                                 <img id ="buy" src = "img/buy.jpg" alt = "buy now" style = "width:200px;height:80px;">
                                 </a></tr>-->
-                                <a href=<%=cartToPath + product.getPid()%>>
+                                <a href=<%=cartToPath + product.getPid()%> >
                                 <img src="img/add-to-cart.png" alt="add to cart">
                                 </a>
   
@@ -151,18 +178,18 @@
 					<div id ="feature">
 					<%
                                         String[] token = (product.getFeature()).split(",");
-                                        boolean a=true;
+                                        //boolean a=true;
 					int count;
                                         for (count = 0; count < token.length; count++){
 					 
-                                            if (a == true){
+                                            if (count % 2 == 0){
                                                 
                                             %>
-                                            <p style ="background-color:#C8CBCC"> <%out.println(token[count]); a = false;}%> </p>
-                                            <% if (a == false){%>
+                                            <p style ="background-color:#C8CBCC"> <%out.println(token[count]); }%> </p>
+                                            <% if (count % 2 != 0){%>
                                             
                                                
-                                                        <p><% out.println(token[count]); a = true;}}%></p>
+                                                        <p><% out.println(token[count]); }}%></p>
                                       
                                                
                                               
@@ -176,17 +203,18 @@
                                                             <% 
                                                                
                                                                 
-                                                                int number = 0;
+                                                                int number = 1;
                                                                
                                                                 try{
                                                                     
                                                                    number = (Integer)(request.getAttribute("customers"));
+                                                                   
                                                                    }
                                                                  catch(Exception e){
                                                                             e.printStackTrace();
                                                                     }
                                                             %>
-                                                            <p>There are customers are viewing <% out.println(number); %> this product.</p>
+                                                            <h4>There are  <% out.println(number); %> customers viewing  this product.</h4>
                                                         </div>
                                                         
 		<div id = "picture">
